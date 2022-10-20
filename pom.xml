@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.github.davidmoten</groupId>
+        <artifactId>sonatype-parent</artifactId>
+        <version>0.1</version>
+    </parent>
+    <artifactId>rxjava3-jdbc-parent</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <name>${project.artifactId}</name>
+    <packaging>pom</packaging>
+    <url>http://github.com/davidmoten/rxjava3-jdbc</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <scm.url>scm:git:https://github.com/davidmoten/rxjava3-jdbc.git</scm.url>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <rxjava.version>3.1.5</rxjava.version>
+        <checkstyle.version>2.17</checkstyle.version>
+        <findbugs.version>3.0.5</findbugs.version>
+        <javadoc.version>3.4.1</javadoc.version>
+        <pmd.version>3.19.0</pmd.version>
+        <jdepend.version>2.0</jdepend.version>
+        <javancss.version>2.1</javancss.version>
+        <project.info.version>2.9</project.info.version>
+        <jxr.version>3.3.0</jxr.version>
+        <taglist.version>3.0.0</taglist.version>
+        <m3.site.version>3.12.1</m3.site.version>
+        <changelog.version>2.2</changelog.version>
+        <coverage.reports.dir>${project.build.directory}/target/coverage-reports</coverage.reports.dir>
+        <slf4j.version>1.7.36</slf4j.version>
+        <jmh.version>1.35</jmh.version>
+        <junit.version>4.13.2</junit.version>
+        <derby.version>10.14.2.0</derby.version>
+        <jar.plugin.version>3.3.0</jar.plugin.version>
+        <jacoco.plugin.version>0.8.8</jacoco.plugin.version>
+        <guava.mini.version>0.1.4</guava.mini.version>
+        <log4j.version>2.19.0</log4j.version>
+        <!--<nexus.staging.plugin.version>1.6.6</nexus.staging.plugin.version>-->
+    </properties>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <ciManagement>
+        <system>Travis</system>
+        <url>https://travis-ci.org/davidmoten/rxjava3-jdbc</url>
+    </ciManagement>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/davidmoten/rxjava3-jdbc/issues</url>
+    </issueManagement>
+
+    <inceptionYear>2016</inceptionYear>
+    <developers>
+        <developer>
+            <id>dave</id>
+            <name>Dave Moten</name>
+            <url>https://github.com/davidmoten/</url>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>+10</timezone>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>${scm.url}</connection>
+        <developerConnection>${scm.url}</developerConnection>
+        <url>${scm.url}</url>
+        <tag>0.2.4</tag>
+    </scm>
+    <modules>
+        <module>rxjava3-jdbc-stored-procedure</module>
+        <module>rxjava3-jdbc</module>
+        <module>rxjava3-jdbc-kotlin-example</module>
+    </modules>
+    <distributionManagement>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+</project>
