@@ -21,9 +21,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.davidmoten.rxjava3.jdbc.ConnectionProvider;
-import org.davidmoten.rxjava3.jdbc.Parameter;
-import org.davidmoten.rxjava3.jdbc.Util;
 import org.davidmoten.rxjava3.jdbc.exceptions.SQLRuntimeException;
 import org.junit.FixMethodOrder;
 import org.junit.Test;

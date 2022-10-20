@@ -1,7 +1,5 @@
 package org.davidmoten.rxjava3.jdbc;
 
-import org.davidmoten.rxjava3.jdbc.Database;
-
 public class MemoryUsageMain {
 
     public static void main(String[] args) throws InterruptedException {

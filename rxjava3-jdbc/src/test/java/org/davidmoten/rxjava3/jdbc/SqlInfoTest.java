@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Collections;
 
-import org.davidmoten.rxjava3.jdbc.Parameter;
-import org.davidmoten.rxjava3.jdbc.SqlInfo;
 import org.junit.Test;
 
 import com.github.davidmoten.guavamini.Lists;

@@ -3,7 +3,6 @@ package org.davidmoten.rxjava3.jdbc.pool;
 import java.sql.Connection;
 
 import org.davidmoten.rxjava3.jdbc.ConnectionProvider;
-import org.davidmoten.rxjava3.jdbc.pool.NonBlockingConnectionPool;
 import org.junit.Test;
 import org.mockito.Mockito;
 

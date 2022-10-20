@@ -2,7 +2,6 @@ package org.davidmoten.rxjava3.jdbc;
 
 import static org.junit.Assert.assertTrue;
 
-import org.davidmoten.rxjava3.jdbc.Database;
 import org.junit.Ignore;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package org.davidmoten.rx.jdbc;
+package org.davidmoten.rxjava3.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

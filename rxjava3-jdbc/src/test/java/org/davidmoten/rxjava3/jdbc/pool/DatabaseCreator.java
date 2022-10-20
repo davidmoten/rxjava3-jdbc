@@ -18,8 +18,6 @@ import org.apache.commons.io.IOUtils;
 import org.davidmoten.rxjava3.jdbc.ConnectionProvider;
 import org.davidmoten.rxjava3.jdbc.Database;
 import org.davidmoten.rxjava3.jdbc.exceptions.SQLRuntimeException;
-import org.davidmoten.rxjava3.jdbc.pool.NonBlockingConnectionPool;
-import org.davidmoten.rxjava3.jdbc.pool.Pools;
 
 import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -106,7 +104,7 @@ public final class DatabaseCreator {
                     + " PARAMETER STYLE JAVA" //
                     + " LANGUAGE JAVA" //
                     + " EXTERNAL NAME" //
-                    + " 'org.davidmoten.rx.jdbc.StoredProcExample.zero'";
+                    + " 'org.davidmoten.rxjava3.jdbc.StoredProcExample.zero'";
             exec(c, sql);
         }
         {
@@ -115,7 +113,7 @@ public final class DatabaseCreator {
                     + " PARAMETER STYLE JAVA" //
                     + " LANGUAGE JAVA" //
                     + " EXTERNAL NAME" //
-                    + " 'org.davidmoten.rx.jdbc.StoredProcExample.inout1'";
+                    + " 'org.davidmoten.rxjava3.jdbc.StoredProcExample.inout1'";
             exec(c, sql);
         }
         {
@@ -125,7 +123,7 @@ public final class DatabaseCreator {
                     + " PARAMETER STYLE JAVA" //
                     + " LANGUAGE JAVA" //
                     + " EXTERNAL NAME" //
-                    + " 'org.davidmoten.rx.jdbc.StoredProcExample.inout2'";
+                    + " 'org.davidmoten.rxjava3.jdbc.StoredProcExample.inout2'";
             exec(c, sql);
         }
 
@@ -136,7 +134,7 @@ public final class DatabaseCreator {
                     + " PARAMETER STYLE JAVA" //
                     + " LANGUAGE JAVA" //
                     + " EXTERNAL NAME" //
-                    + " 'org.davidmoten.rx.jdbc.StoredProcExample.inout3'";
+                    + " 'org.davidmoten.rxjava3.jdbc.StoredProcExample.inout3'";
             exec(c, sql);
         }
         {
@@ -146,7 +144,7 @@ public final class DatabaseCreator {
                     + " PARAMETER STYLE JAVA" //
                     + " LANGUAGE JAVA" //
                     + " EXTERNAL NAME" //
-                    + " 'org.davidmoten.rx.jdbc.StoredProcExample.in1out1'";
+                    + " 'org.davidmoten.rxjava3.jdbc.StoredProcExample.in1out1'";
             exec(c, sql);
         }
 
@@ -158,7 +156,7 @@ public final class DatabaseCreator {
                     + " PARAMETER STYLE JAVA" //
                     + " LANGUAGE JAVA" //
                     + " EXTERNAL NAME" //
-                    + " 'org.davidmoten.rx.jdbc.StoredProcExample.in1out2'";
+                    + " 'org.davidmoten.rxjava3.jdbc.StoredProcExample.in1out2'";
             exec(c, sql);
         }
 
@@ -171,7 +169,7 @@ public final class DatabaseCreator {
                     + " PARAMETER STYLE JAVA" //
                     + " LANGUAGE JAVA" //
                     + " EXTERNAL NAME" //
-                    + " 'org.davidmoten.rx.jdbc.StoredProcExample.in1out3'";
+                    + " 'org.davidmoten.rxjava3.jdbc.StoredProcExample.in1out3'";
             exec(c, sql);
         }
         {
@@ -189,7 +187,7 @@ public final class DatabaseCreator {
                     + " PARAMETER STYLE JAVA" //
                     + " LANGUAGE JAVA" //
                     + " EXTERNAL NAME" //
-                    + " 'org.davidmoten.rx.jdbc.StoredProcExample.out10'";
+                    + " 'org.davidmoten.rxjava3.jdbc.StoredProcExample.out10'";
             exec(c, sql);
         }
 
@@ -201,7 +199,7 @@ public final class DatabaseCreator {
                     + " READS SQL DATA" //
                     + " DYNAMIC RESULT SETS 1" //
                     + " EXTERNAL NAME" //
-                    + " 'org.davidmoten.rx.jdbc.StoredProcExample.in0out0rs1'";
+                    + " 'org.davidmoten.rxjava3.jdbc.StoredProcExample.in0out0rs1'";
             exec(c, sql);
         }
         {
@@ -212,7 +210,7 @@ public final class DatabaseCreator {
                     + " READS SQL DATA" //
                     + " DYNAMIC RESULT SETS 10" //
                     + " EXTERNAL NAME" //
-                    + " 'org.davidmoten.rx.jdbc.StoredProcExample.rs10'";
+                    + " 'org.davidmoten.rxjava3.jdbc.StoredProcExample.rs10'";
             exec(c, sql);
         }
         {
@@ -222,7 +220,7 @@ public final class DatabaseCreator {
                     + " PARAMETER STYLE JAVA" //
                     + " LANGUAGE JAVA" //
                     + " EXTERNAL NAME" //
-                    + " 'org.davidmoten.rx.jdbc.StoredProcExample.getPersonCount'";
+                    + " 'org.davidmoten.rxjava3.jdbc.StoredProcExample.getPersonCount'";
             exec(c, sql);
         }
 
@@ -233,7 +231,7 @@ public final class DatabaseCreator {
                     + " READS SQL DATA" //
                     + " DYNAMIC RESULT SETS 2" //
                     + " EXTERNAL NAME" //
-                    + " 'org.davidmoten.rx.jdbc.StoredProcExample.in1out0rs2'";
+                    + " 'org.davidmoten.rxjava3.jdbc.StoredProcExample.in1out0rs2'";
             exec(c, sql);
         }
 
@@ -244,7 +242,7 @@ public final class DatabaseCreator {
                     + " READS SQL DATA" //
                     + " DYNAMIC RESULT SETS 3" //
                     + " EXTERNAL NAME" //
-                    + " 'org.davidmoten.rx.jdbc.StoredProcExample.in0out2rs3'";
+                    + " 'org.davidmoten.rxjava3.jdbc.StoredProcExample.in0out2rs3'";
             exec(c, sql);
         }
 
