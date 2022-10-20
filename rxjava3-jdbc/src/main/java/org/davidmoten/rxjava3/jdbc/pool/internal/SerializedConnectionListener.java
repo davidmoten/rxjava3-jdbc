@@ -3,9 +3,10 @@ package org.davidmoten.rxjava3.jdbc.pool.internal;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.davidmoten.rxjava3.jdbc.internal.queue.MpscLinkedQueue;
+import org.davidmoten.rxjava3.jdbc.internal.queue.SimplePlainQueue;
+
 import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.internal.queue.MpscLinkedQueue;
-import io.reactivex.rxjava3.operators.SimplePlainQueue;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
 
 @SuppressWarnings("serial")

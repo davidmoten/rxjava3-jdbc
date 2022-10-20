@@ -17,6 +17,7 @@ import org.davidmoten.rxjava3.jdbc.callable.CallableResultSetN;
 import org.davidmoten.rxjava3.jdbc.callable.internal.InParameterPlaceholder;
 import org.davidmoten.rxjava3.jdbc.callable.internal.OutParameterPlaceholder;
 import org.davidmoten.rxjava3.jdbc.callable.internal.ParameterPlaceholder;
+import org.davidmoten.rxjava3.jdbc.internal.Functions;
 import org.davidmoten.rxjava3.jdbc.tuple.Tuple2;
 import org.davidmoten.rxjava3.jdbc.tuple.Tuple3;
 import org.davidmoten.rxjava3.jdbc.tuple.Tuple4;
@@ -35,7 +36,6 @@ import io.reactivex.rxjava3.functions.BiFunction;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.functions.Supplier;
-import io.reactivex.rxjava3.internal.functions.Functions;
 
 final class Call {
 

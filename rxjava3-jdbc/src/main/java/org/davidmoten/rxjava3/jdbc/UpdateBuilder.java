@@ -5,12 +5,13 @@ import java.sql.ResultSet;
 
 import javax.annotation.Nonnull;
 
+import org.davidmoten.rxjava3.jdbc.internal.Functions;
+
 import com.github.davidmoten.guavamini.Preconditions;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.internal.functions.Functions;
 
 public final class UpdateBuilder extends ParametersBuilder<UpdateBuilder> implements DependsOn<UpdateBuilder> {
 

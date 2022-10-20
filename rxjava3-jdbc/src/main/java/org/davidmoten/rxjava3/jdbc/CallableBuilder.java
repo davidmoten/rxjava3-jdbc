@@ -22,6 +22,7 @@ import org.davidmoten.rxjava3.jdbc.callable.internal.InOut;
 import org.davidmoten.rxjava3.jdbc.callable.internal.InParameterPlaceholder;
 import org.davidmoten.rxjava3.jdbc.callable.internal.Out;
 import org.davidmoten.rxjava3.jdbc.callable.internal.ParameterPlaceholder;
+import org.davidmoten.rxjava3.jdbc.internal.Functions;
 import org.davidmoten.rxjava3.jdbc.tuple.Tuple2;
 import org.davidmoten.rxjava3.jdbc.tuple.Tuple3;
 import org.davidmoten.rxjava3.jdbc.tuple.Tuple4;
@@ -34,7 +35,6 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.functions.Function;
-import io.reactivex.rxjava3.internal.functions.Functions;
 
 public final class CallableBuilder implements Getter1 {
 
