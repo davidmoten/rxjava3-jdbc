@@ -8,17 +8,17 @@ endif::[]
 :toc:
 :toc-placement!:
 
-= rxjava2-jdbc
+= rxjava3-jdbc
 
-image:https://github.com/davidmoten/rxjava2-extras/actions/workflows/ci.yml/badge.svg["Travis CI",link="https://github.com/davidmoten/rxjava2-extras/actions/workflows/ci.yml"]
-image:https://codecov.io/gh/davidmoten/rxjava2-jdbc/branch/master/graph/badge.svg["CodeCov",link="https://codecov.io/gh/davidmoten/rxjava2-jdbc"]
-image:https://maven-badges.herokuapp.com/maven-central/com.github.davidmoten/rxjava2-jdbc/badge.svg?style=flat[link="https://maven-badges.herokuapp.com/maven-central/com.github.davidmoten/rxjava2-jdbc"]
+image:https://github.com/davidmoten/rxjava3-extras/actions/workflows/ci.yml/badge.svg["Travis CI",link="https://github.com/davidmoten/rxjava3-extras/actions/workflows/ci.yml"]
+image:https://codecov.io/gh/davidmoten/rxjava3-jdbc/branch/master/graph/badge.svg["CodeCov",link="https://codecov.io/gh/davidmoten/rxjava3-jdbc"]
+image:https://maven-badges.herokuapp.com/maven-central/com.github.davidmoten/rxjava3-jdbc/badge.svg?style=flat[link="https://maven-badges.herokuapp.com/maven-central/com.github.davidmoten/rxjava3-jdbc"]
 
-JDBC is so much simpler with _rxjava2-jdbc_.
+JDBC is so much simpler with _rxjava3-jdbc_.
 
 Status: _published to Maven Central_
 
-Maven site reports are https://davidmoten.github.io/rxjava2-jdbc/index.html[here] including https://davidmoten.github.io/rxjava2-jdbc/apidocs/index.html[javadoc].
+Maven site reports are https://davidmoten.github.io/rxjava3-jdbc/index.html[here] including https://davidmoten.github.io/rxjava3-jdbc/apidocs/index.html[javadoc].
 
 toc::[]
 
@@ -36,7 +36,7 @@ Use this maven dependency:
 ```xml
 <dependency>
   <groupId>com.github.davidmoten</groupId>
-  <artifactId>rxjava2-jdbc</artifactId>
+  <artifactId>rxjava3-jdbc</artifactId>
   <version>VERSION_HERE</version>
 </dependency>
 ```
@@ -58,7 +58,7 @@ To start things off you need a `Database` instance. Given the jdbc url of your d
 Database db = Database.from(url, maxPoolSize);
 ```
 
-== Support for playing with rxjava2-jdbc!
+== Support for playing with rxjava3-jdbc!
 
 If you want to have a play with a built-in test database then do this:
 
@@ -75,9 +75,9 @@ To use the built-in test database you will need the Apache Derby dependency:
 </dependency>
 ```
 
-The test database has a few tables (see link:rxjava2-jdbc/src/main/resources/database-test.sql[script]) including `Person` and `Address` with three rows in `Person` and two rows in `Address`:
+The test database has a few tables (see link:rxjava3-jdbc/src/main/resources/database-test.sql[script]) including `Person` and `Address` with three rows in `Person` and two rows in `Address`:
 
-image::https://raw.githubusercontent.com/davidmoten/rxjava2-jdbc/master/rxjava2-jdbc/src/docs/tables.png?raw=true[schema]
+image::https://raw.githubusercontent.com/davidmoten/rxjava3-jdbc/master/rxjava3-jdbc/src/docs/tables.png?raw=true[schema]
 
 Each time you call `Database.test(maxPoolSize)` you will have a fresh new database to play with that is loaded with data as described above.
 
@@ -311,7 +311,7 @@ Database
   .blockingForEach(System.out::println);
 ```
 === Automap with Kotlin
-See https://github.com/davidmoten/rxjava2-jdbc/blob/master/rxjava2-jdbc-kotlin-example/src/test/kotlin/RxJava2JdbcKotlinTest.kt[example]. Below is how you annotate an interface in Kotlin for automap:
+See https://github.com/davidmoten/rxjava3-jdbc/blob/master/rxjava3-jdbc-kotlin-example/src/test/kotlin/RxJava2JdbcKotlinTest.kt[example]. Below is how you annotate an interface in Kotlin for automap:
 
 ```kotlin
 @Query("select name from person order by name")
@@ -336,7 +336,7 @@ The automatic mappings below of objects are used in the ```autoMap()``` method a
 
 Parameters are passed to individual queries but can also be used as a streaming source to prompt the query to be run many times.
 
-Parameters can be named or anonymous. Named parameters are not supported natively by the JDBC specification but _rxjava2-jdbc_ does support them.
+Parameters can be named or anonymous. Named parameters are not supported natively by the JDBC specification but _rxjava3-jdbc_ does support them.
 
 This is sql with a named parameter:
 
@@ -465,7 +465,7 @@ Database.test()
 ```
 You need to pass an implementation of `java.util.Collection` to one of these parameters (for example `java.util.List` or `java.util.Set`).
 
-Under the covers _rxjava2-jdbc_ does not use `PreparedStatement.setArray` because of the patchy support for this method (not supported by DB2 or MySQL for instance) and the extra requirement of specifying a column type.
+Under the covers _rxjava3-jdbc_ does not use `PreparedStatement.setArray` because of the patchy support for this method (not supported by DB2 or MySQL for instance) and the extra requirement of specifying a column type.
 
 Note that databases normally have a limit on the number of parameters in a statement (or indeed the size of array that can be passed in `setArray`). For Oracle it's O(1000), H2 it is O(20000).
 
@@ -473,7 +473,7 @@ Note that databases normally have a limit on the number of parameters in a state
 
 == Non-blocking connection pools
 
-A new exciting feature of _rxjava2-jdbc_ is the availability of non-blocking connection pools. 
+A new exciting feature of _rxjava3-jdbc_ is the availability of non-blocking connection pools. 
 
 In normal non-reactive database programming a couple of different threads (started by servlet calls for instance) will _race_ for the next available connection from a pool of database connections. If no unused connection remains in the pool then the standard non-reactive approach is to *block the thread* until a connection becomes available. 
 
@@ -701,9 +701,9 @@ The `returnGeneratedKeys` method also supports returning multiple keys per row s
 == Transactions
 Transactions are a critical feature of relational databases. 
 
-When we're talking RxJava we need to consider the behaviour of individual JDBC objects when called by different threads, possibly concurrently. The approach taken by _rxjava2-jdbc_ outside of a transaction safely uses Connection pools (in a non-blocking way). Inside a transaction we must make all calls to the database using the same Connection object so the behaviour of that Connection when called from different threads is important. Some JDBC drivers provide thread-safety on JDBC objects by synchronizing every call.
+When we're talking RxJava we need to consider the behaviour of individual JDBC objects when called by different threads, possibly concurrently. The approach taken by _rxjava3-jdbc_ outside of a transaction safely uses Connection pools (in a non-blocking way). Inside a transaction we must make all calls to the database using the same Connection object so the behaviour of that Connection when called from different threads is important. Some JDBC drivers provide thread-safety on JDBC objects by synchronizing every call.
 
-The safest approach with transactions is to perform all db interaction synchronously. Asynchronous processing within transactions was problematic in _rxjava-jdbc_ because `ThreadLocal` was used to hold the Connection. Asynchronous processing with transactions _is_ possible with _rxjava2-jdbc_ but should be handled with care given that your JDBC driver may block or indeed suffer from race conditions that most users don't encounter.
+The safest approach with transactions is to perform all db interaction synchronously. Asynchronous processing within transactions was problematic in _rxjava-jdbc_ because `ThreadLocal` was used to hold the Connection. Asynchronous processing with transactions _is_ possible with _rxjava3-jdbc_ but should be handled with care given that your JDBC driver may block or indeed suffer from race conditions that most users don't encounter.
 
 Let's look at some examples. The first example uses a transaction across two select statement calls:
 
@@ -771,7 +771,7 @@ Flowable<Tuple2<Integer,Integer>> tuples =
 
 Note above that each question mark in the call statement correponds in order with a call to `in()` or `out(...)`. Once all parameters have been defined then the `input(0, 10, 20)` call drives the running of the query with that input. The output `Flowable` is strongly typed according to the `out` parameters specified.
 
-When you start specifying output `ResultSet` s from the call then you lose output parameter strong typing but gain `ResultSet` mapped strong typing as per normal `select` statements in _rxjava2-jdbc_.
+When you start specifying output `ResultSet` s from the call then you lose output parameter strong typing but gain `ResultSet` mapped strong typing as per normal `select` statements in _rxjava3-jdbc_.
 
 Here's an example for one `in` parameter and two output `ResultSet` s with `autoMap`. You can of course use `getAs` instead (or `get`): 
 
@@ -804,11 +804,11 @@ Flowable<String> namePairs =
        .zipWith(x.results2(), (y, z) -> y._1() + z._1()));    
 ```
 
-You can explore more examples of this in [`DatabaseTest.java`](rxjava2-jdbc/src/test/java/org/davidmoten/rx/jdbc/DatabaseTest.java). Search for `.call`.
+You can explore more examples of this in [`DatabaseTest.java`](rxjava3-jdbc/src/test/java/org/davidmoten/rx/jdbc/DatabaseTest.java). Search for `.call`.
 
 == Using raw JDBC
 
-A few nifty things in JDBC may not yet directly supported by *rxjava2-jdbc* but you can get acccess to the underlying `Connection` s from the `Database` object by using `Database.apply` or `Database.member()`.
+A few nifty things in JDBC may not yet directly supported by *rxjava3-jdbc* but you can get acccess to the underlying `Connection` s from the `Database` object by using `Database.apply` or `Database.member()`.
 
 Here's an example where you want to return something from a `Connection` (say you called a stored procedure and returned an integer):
 
@@ -866,6 +866,6 @@ Completable completable = db.member()
 == Logging
 
 Logging is handled by slf4j which bridges to the logging framework of your choice. Add
-the dependency for your logging framework as a maven dependency and you are sorted. See the test scoped log4j example in https://github.com/davidmoten/rxjava2-jdbc/blob/master/pom.xml[rxjava2-jdbc/pom.xml].
+the dependency for your logging framework as a maven dependency and you are sorted. See the test scoped log4j example in https://github.com/davidmoten/rxjava3-jdbc/blob/master/pom.xml[rxjava3-jdbc/pom.xml].
 
 
