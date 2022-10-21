@@ -113,7 +113,7 @@ The query flowables returned by the `Database` all run asynchronously. This is r
 
 
 == Nulls
-RxJava2 does not support streams of nulls. If you want to represent nulls in your stream then use `java.util.Optional`.
+RxJava 3.x does not support streams of nulls. If you want to represent nulls in your stream then use `java.util.Optional`.
 
 In the special case where a single nullable column is being returned and mapped to a class via `getAs` you should instead use `getAsOptional`:
 
@@ -200,7 +200,7 @@ interface Person {
 }
 ```
 
-In the query use the `autoMap` method and let's use some of the built-in testing methods of RxJava2 to confirm we got what we expected:
+In the query use the `autoMap` method and let's use some of the built-in testing methods of RxJava 3.x to confirm we got what we expected:
 
 ```java
 Database db = Database.test();
@@ -313,7 +313,7 @@ Database
   .blockingForEach(System.out::println);
 ```
 === Automap with Kotlin
-See https://github.com/davidmoten/rxjava3-jdbc/blob/master/rxjava3-jdbc-kotlin-example/src/test/kotlin/RxJava2JdbcKotlinTest.kt[example]. Below is how you annotate an interface in Kotlin for automap:
+See https://github.com/davidmoten/rxjava3-jdbc/blob/master/rxjava3-jdbc-kotlin-example/src/test/kotlin/RxJava3JdbcKotlinTest.kt[example]. Below is how you annotate an interface in Kotlin for automap:
 
 ```kotlin
 @Query("select name from person order by name")
