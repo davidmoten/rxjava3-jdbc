@@ -22,6 +22,8 @@ Maven site reports are https://davidmoten.github.io/rxjava3-jdbc/index.html[here
 
 toc::[]
 
+This is the migration of [rxjava2-jdbc](https://github.com/davidmoten/rxjava2-jdbc) to RxJava 3.x.
+
 == How to build
 
 Use maven:
