@@ -1,5 +1,9 @@
 package org.davidmoten.rxjava3.jdbc.pool;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
@@ -97,7 +101,13 @@ public final class DatabaseCreator {
     }
 
     private static void addStoredProcs(Connection c) throws SQLException {
-        exec(c, "call sqlj.install_jar('target/rxjava3-jdbc-stored-procedure.jar', 'APP.examples', 0)");
+        File d = new File("../rxjava3-jdbc-stored-procedure/target");
+        assertTrue(d.exists());
+        File[] list = d.listFiles(f -> f.getName().startsWith("rxjava3-jdbc-stored-procedure-") //
+                && f.getName().endsWith(".jar"));
+        assertEquals(1, list.length);
+        File jar = list[0];
+        exec(c, "call sqlj.install_jar('" + jar.getPath() + "', 'APP.examples', 0)");
 
         {
             String sql = "CREATE PROCEDURE APP.zero()" //
