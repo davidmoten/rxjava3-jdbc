@@ -31,6 +31,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -811,7 +812,7 @@ public enum Util {
                     Integer index;
                     if (column instanceof NamedCol) {
                         String name = ((NamedCol) column).name;
-                        index = colIndexes.get(name.toUpperCase());
+                        index = colIndexes.get(name.toUpperCase(Locale.ENGLISH));
                         if (index == null) {
                             throw new ColumnNotFoundException("query column names do not include '" + name
                                     + "' which is a named column in the automapped interface " + cls.getName());
@@ -993,7 +994,7 @@ public enum Util {
         try {
             ResultSetMetaData metadata = rs.getMetaData();
             for (int i = 1; i <= metadata.getColumnCount(); i++) {
-                map.put(metadata.getColumnName(i).toUpperCase(), i);
+                map.put(metadata.getColumnName(i).toUpperCase(Locale.ENGLISH), i);
             }
             return map;
         } catch (SQLException e) {
