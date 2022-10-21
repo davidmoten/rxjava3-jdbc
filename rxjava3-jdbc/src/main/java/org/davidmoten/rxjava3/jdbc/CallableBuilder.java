@@ -58,6 +58,7 @@ public final class CallableBuilder implements Getter1 {
 
     @SuppressWarnings("unchecked")
     public Flowable<List<Object>> parameterGroups() {
+        Preconditions.checkNotNull(inStream, "input must be set in the builder");
         int numInParameters = params.stream() //
                 .filter(x -> x instanceof InParameterPlaceholder) //
                 .collect(Collectors.counting()).intValue();
