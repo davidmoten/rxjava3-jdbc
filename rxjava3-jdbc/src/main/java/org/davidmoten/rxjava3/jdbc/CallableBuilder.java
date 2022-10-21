@@ -88,12 +88,12 @@ public final class CallableBuilder implements Getter1 {
     }
 
     public <T> CallableBuilder1<T> inOut(Type type, Class<T> cls) {
-        params.add(new InOut(type, cls));
+        params.add(new InOut(type));
         return new CallableBuilder1<T>(this, cls);
     }
 
     public <T> CallableBuilder1<T> out(Type type, Class<T> cls) {
-        params.add(new Out(type, cls));
+        params.add(new Out(type));
         return new CallableBuilder1<T>(this, cls);
     }
 

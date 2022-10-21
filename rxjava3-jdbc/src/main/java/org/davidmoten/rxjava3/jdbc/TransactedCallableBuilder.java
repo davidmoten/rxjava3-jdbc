@@ -64,12 +64,12 @@ public final class TransactedCallableBuilder implements TxGetter1 {
     }
 
     public <T> CallableBuilder1<T> inOut(Type type, Class<T> cls) {
-        b.params.add(new InOut(type, cls));
+        b.params.add(new InOut(type));
         return new CallableBuilder1<T>(b, cls);
     }
 
     public <T> CallableBuilder1<T> out(Type type, Class<T> cls) {
-        b.params.add(new Out(type, cls));
+        b.params.add(new Out(type));
         return new CallableBuilder1<T>(b, cls);
     }
 

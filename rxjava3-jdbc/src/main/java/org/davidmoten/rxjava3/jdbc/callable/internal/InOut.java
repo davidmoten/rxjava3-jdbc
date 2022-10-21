@@ -4,11 +4,9 @@ import org.davidmoten.rxjava3.jdbc.Type;
 
 public final class InOut implements InParameterPlaceholder, OutParameterPlaceholder {
     final Type type;
-    final Class<?> cls;
 
-    public InOut(Type type, Class<?> cls) {
+    public InOut(Type type) {
         this.type = type;
-        this.cls = cls;
     }
 
     @Override

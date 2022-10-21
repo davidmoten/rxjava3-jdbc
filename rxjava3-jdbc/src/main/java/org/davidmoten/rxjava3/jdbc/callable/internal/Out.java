@@ -4,11 +4,9 @@ import org.davidmoten.rxjava3.jdbc.Type;
 
 public final class Out implements OutParameterPlaceholder {
     final Type type;
-    final Class<?> cls;
 
-    public Out(Type type, Class<?> cls) {
+    public Out(Type type) {
         this.type = type;
-        this.cls = cls;
     }
 
     @Override
