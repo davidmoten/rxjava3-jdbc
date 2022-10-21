@@ -20,9 +20,9 @@ Status: _published to Maven Central_
 
 Maven site reports are https://davidmoten.github.io/rxjava3-jdbc/index.html[here] including https://davidmoten.github.io/rxjava3-jdbc/apidocs/index.html[javadoc].
 
-toc::[]
+This is the migration of https://github.com/davidmoten/rxjava2-jdbc[rxjava2-jdbc] to RxJava 3.x.
 
-This is the migration of [rxjava2-jdbc](https://github.com/davidmoten/rxjava2-jdbc) to RxJava 3.x.
+toc::[]
 
 == How to build
 
