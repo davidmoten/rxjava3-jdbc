@@ -31,7 +31,6 @@
         <taglist.version>3.0.0</taglist.version>
         <m3.site.version>3.12.1</m3.site.version>
         <changelog.version>2.2</changelog.version>
-        <coverage.reports.dir>${project.build.directory}/target/coverage-reports</coverage.reports.dir>
         <slf4j.version>1.7.36</slf4j.version>
         <jmh.version>1.35</jmh.version>
         <junit.version>4.13.2</junit.version>
@@ -40,6 +39,7 @@
         <jacoco.plugin.version>0.8.8</jacoco.plugin.version>
         <guava.mini.version>0.1.4</guava.mini.version>
         <log4j.version>2.19.0</log4j.version>
+        <spotbugs.version>4.7.2.1</spotbugs.version>
         <!--<nexus.staging.plugin.version>1.6.6</nexus.staging.plugin.version>-->
     </properties>
 
