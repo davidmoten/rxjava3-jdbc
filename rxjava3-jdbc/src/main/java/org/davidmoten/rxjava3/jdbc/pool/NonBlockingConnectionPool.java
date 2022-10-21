@@ -297,6 +297,8 @@ public final class NonBlockingConnectionPool implements Pool<Connection> {
             }
             if (url != null) {
                 cp = Util.connectionProvider(url, properties);
+            } else if (cp == null) {
+                throw new IllegalArgumentException("connectionProvider or url must be set");
             }
             Consumer<Optional<Throwable>> listener;
             if (c == null) {
