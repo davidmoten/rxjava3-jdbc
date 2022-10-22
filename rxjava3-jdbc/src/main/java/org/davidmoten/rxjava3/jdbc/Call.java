@@ -227,7 +227,7 @@ final class Call {
             String sql, Flowable<List<Object>> parameterGroups, List<ParameterPlaceholder> parameterPlaceholders,
             Function<? super ResultSet, ? extends T1> f1, int fetchSize) {
         log.debug("Update.create {}", sql);
-        Supplier<NamedCallableStatement> resourceFactory = () -> Util.prepareCall(con, sql, parameterPlaceholders);
+        Supplier<NamedCallableStatement> resourceFactory = () -> Util.prepareCall(con, fetchSize, sql, parameterPlaceholders);
         final Function<NamedCallableStatement, Flowable<Notification<CallableResultSet1<T1>>>> flowableFactory = //
                 stmt -> parameterGroups //
                         .flatMap(parameters -> {
