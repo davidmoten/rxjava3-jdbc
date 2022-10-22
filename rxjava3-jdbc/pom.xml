@@ -10,7 +10,7 @@
     <artifactId>rxjava3-jdbc</artifactId>
 
     <name>${project.artifactId}</name>
-    <description>RxJava2 streams for jdbc</description>
+    <description>RxJava3 streams for jdbc</description>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -36,13 +36,19 @@
        <dependency>
             <groupId>com.github.davidmoten</groupId>
             <artifactId>rxjava3-pool</artifactId>
-            <version>0.9.2</version>
+            <version>0.9.3</version>
        </dependency>
 
         <dependency>
             <groupId>com.github.davidmoten</groupId>
             <artifactId>guava-mini</artifactId>
             <version>${guava.mini.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>annotations</artifactId>
+            <version>3.0.1</version>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -131,11 +137,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>annotations</artifactId>
-            <version>3.0.1</version>
-        </dependency>
     </dependencies>
 
     <build>
