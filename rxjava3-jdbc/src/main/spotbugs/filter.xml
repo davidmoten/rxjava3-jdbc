@@ -10,4 +10,11 @@
             <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED"/>
         </Or>
     </Match>
+    <Match>
+        <Class name="org.davidmoten.rxjava3.jdbc.pool.internal.SerializedConnectionListener" />
+        <Or>
+            <Bug pattern="SE_BAD_FIELD" />
+            <Bug pattern="SE_BAD_FIELD_STORE" />
+        </Or>
+    </Match>
 </FindBugsFilter>
