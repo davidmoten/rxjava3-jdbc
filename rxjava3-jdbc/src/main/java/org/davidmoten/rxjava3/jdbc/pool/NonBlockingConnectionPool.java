@@ -59,6 +59,7 @@ public final class NonBlockingConnectionPool implements Pool<Connection> {
 
         public Builder(Function<NonBlockingConnectionPool, T> transform) {
             this.transform = transform;
+            this.cp = null;
         }
 
         /**
