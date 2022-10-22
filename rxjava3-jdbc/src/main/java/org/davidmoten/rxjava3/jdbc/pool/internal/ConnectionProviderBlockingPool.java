@@ -36,13 +36,13 @@ public final class ConnectionProviderBlockingPool implements Pool<Connection> {
     static final class MemberWithValueConnection implements Member<Connection>, DelegatedConnection {
 
         private final ConnectionProvider connectionProvider;
+        volatile PooledConnection connection;
+        final AtomicBoolean hasConnection = new AtomicBoolean();
 
         public MemberWithValueConnection(ConnectionProvider cp) {
             this.connectionProvider = cp;
+            this.connection = null; // avoids spotbugs complaint
         }
-
-        volatile PooledConnection connection;
-        final AtomicBoolean hasConnection = new AtomicBoolean();
 
         @Override
         public Connection con() {
