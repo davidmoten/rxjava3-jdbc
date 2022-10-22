@@ -63,7 +63,7 @@ abstract class ParametersBuilder<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private final T parameterList(Object[] values) {
+    private T parameterList(Object[] values) {
         Preconditions.checkNotNull(values);
         if (values.length == 0) {
             // no effect

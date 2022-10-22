@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Column {
 
-    static String NOT_SPECIFIED = "*COLUMN_NOT_SPECIFIED*";
+    String NOT_SPECIFIED = "*COLUMN_NOT_SPECIFIED*";
 
     String value() default NOT_SPECIFIED;
 }
