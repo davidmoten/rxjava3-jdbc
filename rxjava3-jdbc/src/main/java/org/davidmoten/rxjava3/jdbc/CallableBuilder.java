@@ -46,7 +46,7 @@ public final class CallableBuilder implements Getter1 {
     final Single<Connection> connection;
     final Database db;
 
-    public CallableBuilder(String sql, Single<Connection> connection, Database db) {
+    CallableBuilder(String sql, Single<Connection> connection, Database db) {
         this.sql = sql;
         this.connection = connection;
         this.db = db;
