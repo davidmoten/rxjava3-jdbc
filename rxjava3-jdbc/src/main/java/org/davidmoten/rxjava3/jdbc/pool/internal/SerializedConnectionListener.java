@@ -13,8 +13,8 @@ import io.reactivex.rxjava3.plugins.RxJavaPlugins;
 public final class SerializedConnectionListener extends AtomicInteger
         implements Consumer<Optional<Throwable>> {
 
-    private transient final Consumer<? super Optional<Throwable>> c;
-    private transient final SimplePlainQueue<Optional<Throwable>> queue = new MpscLinkedQueue<>();
+    private final Consumer<? super Optional<Throwable>> c;
+    private final SimplePlainQueue<Optional<Throwable>> queue = new MpscLinkedQueue<>();
 
     public SerializedConnectionListener(Consumer<? super Optional<Throwable>> c) {
         this.c = c;
