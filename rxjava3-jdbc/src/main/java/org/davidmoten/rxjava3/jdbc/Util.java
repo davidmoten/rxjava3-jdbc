@@ -85,7 +85,7 @@ public enum Util {
             }
             Object v = p.value();
             if (p.isCollection()) {
-                for (Object o : ((Collection<?>) v)) {
+                for (Object o : (Collection<?>) v) {
                     setParameter(ps, j, o);
                     j++;
                 }
@@ -818,7 +818,7 @@ public enum Util {
                                     + "' which is a named column in the automapped interface " + cls.getName());
                         }
                     } else {
-                        IndexedCol col = ((IndexedCol) column);
+                        IndexedCol col = (IndexedCol) column;
                         index = col.index;
                         if (index < 1) {
                             throw new ColumnIndexOutOfRangeException(

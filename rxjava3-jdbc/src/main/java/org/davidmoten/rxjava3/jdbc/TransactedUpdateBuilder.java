@@ -141,7 +141,7 @@ public final class TransactedUpdateBuilder implements DependsOn<TransactedUpdate
                             ub.queryTimeoutSec) //
                             .flatMap(n -> Tx.toTx(n, connection.get(), db)) //
                             .doOnNext(tx -> {
-                                t[0] = ((TxImpl<Integer>) tx);
+                                t[0] = (TxImpl<Integer>) tx;
                             }) //
                             .doOnComplete(() -> {
                                 TxImpl<?> tx = t[0];

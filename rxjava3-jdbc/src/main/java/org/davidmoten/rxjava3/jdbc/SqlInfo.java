@@ -129,7 +129,7 @@ final class SqlInfo {
 
     // Visible for testing
     static boolean isFollowedOrPrefixedByColon(String sql, int i) {
-        return ':' == sql.charAt(i + 1) || (i > 0 && ':' == sql.charAt(i - 1));
+        return ':' == sql.charAt(i + 1) || i > 0 && ':' == sql.charAt(i - 1);
     }
 
 }

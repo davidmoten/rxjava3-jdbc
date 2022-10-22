@@ -22,7 +22,7 @@ public enum DatabaseType {
 
     private final String healthCheckSql;
 
-    private DatabaseType(String healthCheckSql) {
+    DatabaseType(String healthCheckSql) {
         this.healthCheckSql = healthCheckSql;
     }
 

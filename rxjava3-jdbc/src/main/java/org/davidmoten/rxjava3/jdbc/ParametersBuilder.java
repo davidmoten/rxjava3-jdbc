@@ -72,7 +72,7 @@ abstract class ParametersBuilder<T> {
         Preconditions.checkArgument(sqlInfo.numParameters() == 0 || values.length % sqlInfo.numParameters() == 0,
                 "number of values should be a multiple of number of parameters in sql: " + sqlInfo.sql());
         Preconditions.checkArgument(Arrays.stream(values)
-                .allMatch(o -> sqlInfo.names().isEmpty() || (o instanceof Parameter && ((Parameter) o).hasName())));
+                .allMatch(o -> sqlInfo.names().isEmpty() || o instanceof Parameter && ((Parameter) o).hasName()));
         for (Object val : values) {
             if (val == null) {
                 parameterBuffer.add(Parameter.NULL);

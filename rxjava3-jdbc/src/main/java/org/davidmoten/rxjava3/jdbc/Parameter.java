@@ -42,7 +42,7 @@ public final class Parameter {
     }
 
     boolean isCollection() {
-        return value != null && (value instanceof Collection);
+        return value != null && value instanceof Collection;
     }
 
     int size() {
