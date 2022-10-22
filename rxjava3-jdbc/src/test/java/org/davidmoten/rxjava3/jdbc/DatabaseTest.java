@@ -83,7 +83,6 @@ import org.slf4j.LoggerFactory;
 import com.github.davidmoten.guavamini.Lists;
 import com.github.davidmoten.guavamini.Sets;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
@@ -1156,7 +1155,6 @@ public class DatabaseTest {
     }
 
     @Test
-    @SuppressFBWarnings
     public void testReadMeFragment1() {
         try (Database db = db()) {
             db.select("select name from person") //
@@ -1190,7 +1188,6 @@ public class DatabaseTest {
     }
 
     @Test
-    @SuppressFBWarnings
     public void testTupleSupport() {
         try (Database db = db()) {
             db.select("select name, score from person") //
