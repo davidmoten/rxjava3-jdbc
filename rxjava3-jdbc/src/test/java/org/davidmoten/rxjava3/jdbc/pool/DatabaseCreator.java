@@ -1,6 +1,7 @@
 package org.davidmoten.rxjava3.jdbc.pool;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -105,6 +106,7 @@ public final class DatabaseCreator {
         assertTrue(d.exists());
         File[] list = d.listFiles(f -> f.getName().startsWith("rxjava3-jdbc-stored-procedure-") //
                 && f.getName().endsWith(".jar"));
+        assertNotNull(list);
         assertEquals(1, list.length);
         File jar = list[0];
         exec(c, "call sqlj.install_jar('" + jar.getPath() + "', 'APP.examples', 0)");

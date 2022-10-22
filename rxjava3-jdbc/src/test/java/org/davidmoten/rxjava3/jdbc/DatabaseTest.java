@@ -43,9 +43,6 @@ import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.config.Configurator;
 import org.davidmoten.rxjava3.jdbc.annotations.Column;
 import org.davidmoten.rxjava3.jdbc.annotations.Index;
 import org.davidmoten.rxjava3.jdbc.annotations.Query;
@@ -199,7 +196,7 @@ public class DatabaseTest {
         try {
             Flowable //
                     .error(new RuntimeException("boo")) //
-                    .blockingForEach(System.out::println);
+                    .blockingForEach(x -> log.debug(x.toString()));
         } catch (RuntimeException e) {
             assertEquals("boo", e.getMessage());
         }
@@ -551,80 +548,69 @@ public class DatabaseTest {
     }
 
     @Test(timeout = 40000)
-    public void testSelectUsingNonBlockingBuilderConcurrencyTest()
-            throws InterruptedException, TimeoutException {
-        info();
-        try {
-            try (Database db = db(3)) {
-                Scheduler scheduler = Schedulers.from(Executors.newFixedThreadPool(50));
-                int n = 10000;
-                CountDownLatch latch = new CountDownLatch(n);
-                AtomicInteger count = new AtomicInteger();
-                for (int i = 0; i < n; i++) {
-                    db.select("select score from person where name=?") //
-                            .parameters("FRED", "JOSEPH") //
-                            .getAs(Integer.class) //
-                            .subscribeOn(scheduler) //
-                            .toList() //
-                            .doOnSuccess(x -> {
-                                if (!x.equals(Lists.newArrayList(21, 34))) {
-                                    throw new RuntimeException("run broken");
-                                } else {
-                                    // log.debug(iCopy + " succeeded");
-                                }
-                            }) //
-                            .doOnSuccess(x -> {
-                                count.incrementAndGet();
-                                latch.countDown();
-                            }) //
-                            .doOnError(x -> latch.countDown()) //
-                            .subscribe();
-                }
-                if (!latch.await(20, TimeUnit.SECONDS)) {
-                    throw new TimeoutException("timeout");
-                }
-                assertEquals(n, count.get());
+    public void testSelectUsingNonBlockingBuilderConcurrencyTest() throws InterruptedException, TimeoutException {
+        try (Database db = db(3)) {
+            Scheduler scheduler = Schedulers.from(Executors.newFixedThreadPool(50));
+            int n = 10000;
+            CountDownLatch latch = new CountDownLatch(n);
+            AtomicInteger count = new AtomicInteger();
+            for (int i = 0; i < n; i++) {
+                db.select("select score from person where name=?") //
+                        .parameters("FRED", "JOSEPH") //
+                        .getAs(Integer.class) //
+                        .subscribeOn(scheduler) //
+                        .toList() //
+                        .doOnSuccess(x -> {
+                            if (!x.equals(Lists.newArrayList(21, 34))) {
+                                throw new RuntimeException("run broken");
+                            } else {
+                                // log.debug(iCopy + " succeeded");
+                            }
+                        }) //
+                        .doOnSuccess(x -> {
+                            count.incrementAndGet();
+                            latch.countDown();
+                        }) //
+                        .doOnError(x -> latch.countDown()) //
+                        .subscribe();
             }
-        } finally {
-            debug();
+            if (!latch.await(20, TimeUnit.SECONDS)) {
+                throw new TimeoutException("timeout");
+            }
+            assertEquals(n, count.get());
         }
     }
 
     @Test(timeout = 5000)
     public void testSelectConcurrencyTest() throws InterruptedException, TimeoutException {
-        debug();
-        try {
-            try (Database db = db(1)) {
-                Scheduler scheduler = Schedulers.from(Executors.newFixedThreadPool(2));
-                int n = 2;
-                CountDownLatch latch = new CountDownLatch(n);
-                AtomicInteger count = new AtomicInteger();
-                for (int i = 0; i < n; i++) {
-                    db.select("select score from person where name=?") //
-                            .parameters("FRED", "JOSEPH") //
-                            .getAs(Integer.class) //
-                            .subscribeOn(scheduler) //
-                            .toList() //
-                            .doOnSuccess(x -> {
-                                if (!x.equals(Lists.newArrayList(21, 34))) {
-                                    throw new RuntimeException("run broken");
-                                }
-                            }) //
-                            .doOnSuccess(x -> {
-                                count.incrementAndGet();
-                                latch.countDown();
-                            }) //
-                            .doOnError(x -> latch.countDown()) //
-                            .subscribe();
-                    log.info("submitted " + i);
-                }
-                if (!latch.await(5000, TimeUnit.SECONDS)) {
-                    throw new TimeoutException("timeout");
-                }
-                assertEquals(n, count.get());
+        try (Database db = db(1)) {
+            Scheduler scheduler = Schedulers.from(Executors.newFixedThreadPool(2));
+            int n = 2;
+            CountDownLatch latch = new CountDownLatch(n);
+            AtomicInteger count = new AtomicInteger();
+            for (int i = 0; i < n; i++) {
+                db.select("select score from person where name=?") //
+                        .parameters("FRED", "JOSEPH") //
+                        .getAs(Integer.class) //
+                        .subscribeOn(scheduler) //
+                        .toList() //
+                        .doOnSuccess(x -> {
+                            if (!x.equals(Lists.newArrayList(21, 34))) {
+                                throw new RuntimeException("run broken");
+                            }
+                        }) //
+                        .doOnSuccess(x -> {
+                            count.incrementAndGet();
+                            latch.countDown();
+                        }) //
+                        .doOnError(x -> latch.countDown()) //
+                        .subscribe();
+                log.debug("submitted " + i);
             }
-        } finally {
-            debug();
+            if (!latch.await(5000, TimeUnit.SECONDS)) {
+                throw new TimeoutException("timeout");
+            }
+            assertEquals(n, count.get());
         }
     }
 
@@ -1153,13 +1139,13 @@ public class DatabaseTest {
                     .getAs(Integer.class) //
                     .doOnNext(DatabaseTest::println) //
                     .concatMap(score -> {
-                        log.info("score={}", score);
+                        log.debug("score={}", score);
                         return db //
                                 .select("select name from person where score = ?") //
                                 .parameter(score) //
                                 .getAs(String.class) //
                                 .doOnComplete(
-                                        () -> log.info("completed select where score=" + score));
+                                        () -> log.debug("completed select where score=" + score));
                     }) //
                     .test() //
                     .awaitDone(TIMEOUT_SECONDS, TimeUnit.SECONDS) //
@@ -1650,7 +1636,8 @@ public class DatabaseTest {
             db.update("insert into person(name, score) values(?,?)") //
                     .parameters("DAVE", 12, "ANNE", 18) //
                     .counts() //
-                    .test().awaitDone(TIMEOUT_SECONDS, TimeUnit.SECONDS) //
+                    .test() //
+                    .awaitDone(TIMEOUT_SECONDS, TimeUnit.SECONDS) //
                     .assertValues(1, 1) //
                     .assertComplete();
             List<Tuple2<String, Integer>> list = db.select("select name, score from person") //
@@ -1879,28 +1866,17 @@ public class DatabaseTest {
         }
     }
 
-    private static void info() {
-        Configurator.setAllLevels(LogManager.getRootLogger().getName(), Level.INFO);
-    }
-
-    private static void debug() {
-        Configurator.setAllLevels(LogManager.getRootLogger().getName(), Level.DEBUG);
-    }
-
     @Test
     public void testCreateBig() {
-        info();
         big(5).select("select count(*) from person") //
                 .getAs(Integer.class) //
                 .test().awaitDone(20, TimeUnit.SECONDS) //
                 .assertValue(5163) //
                 .assertComplete();
-        debug();
     }
 
     @Test
     public void testTxWithBig() {
-        info();
         big(1) //
                 .select("select name from person") //
                 .transactedValuesOnly() //
@@ -1915,12 +1891,10 @@ public class DatabaseTest {
                 .test().awaitDone(20, TimeUnit.SECONDS) //
                 .assertValue((long) NAMES_COUNT_BIG) //
                 .assertComplete();
-        debug();
     }
 
     @Test
     public void testTxWithBigInputBatchSize2000() {
-        info();
         big(1) //
                 .select("select name from person") //
                 .transactedValuesOnly() //
@@ -1935,7 +1909,6 @@ public class DatabaseTest {
                 .test().awaitDone(20, TimeUnit.SECONDS) //
                 .assertValue((long) NAMES_COUNT_BIG) //
                 .assertComplete();
-        debug();
     }
 
     @Test
@@ -1953,14 +1926,14 @@ public class DatabaseTest {
     @Test
     public void testAutomapClobIssue32() {
         try (Database db = db()) {
-            db.update("insert into person_clob(name, document) values(?, ? )") //
+            assertTrue(db.update("insert into person_clob(name, document) values(?, ? )") //
                     .parameters("fred", "hello there") //
                     .complete() //
-                    .blockingAwait(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+                    .blockingAwait(TIMEOUT_SECONDS, TimeUnit.SECONDS));
             db.select("select * from person_clob") //
                     .autoMap(PersonClob.class) //
                     .map(pc -> {
-                        System.out.println(pc);
+                        log.debug(pc.toString());
                         return pc.document();
                     }) //
                     .test() //
@@ -2022,7 +1995,8 @@ public class DatabaseTest {
             insertNullClob(db);
             db.select("select document, document from person_clob where name='FRED'") //
                     .getAs(String.class, String.class) //
-                    .test().awaitDone(TIMEOUT_SECONDS, TimeUnit.SECONDS) //
+                    .test() //
+                    .awaitDone(TIMEOUT_SECONDS, TimeUnit.SECONDS) //
                     .assertValue(Tuple2.create(null, null)) //
                     .assertComplete();
         }
@@ -2524,7 +2498,6 @@ public class DatabaseTest {
 
     @Test
     public void testAutomappedInstanceHasMeaningfulToStringMethod() {
-        info();
         String s = Database.test() //
                 .select("select name, score from person where name=?") //
                 .parameterStream(Flowable.just("FRED")) //
@@ -2743,7 +2716,7 @@ public class DatabaseTest {
     @Test
     public void testCallableStatement() {
         Database db = DatabaseCreator.createDerbyWithStoredProcs(1);
-        db.apply(con -> {
+        assertTrue(db.apply(con -> {
             try (Statement stmt = con.createStatement()) {
                 CallableStatement st = con.prepareCall("call getPersonCount(?, ?)");
                 st.setInt(1, 0);
@@ -2751,7 +2724,7 @@ public class DatabaseTest {
                 st.execute();
                 assertEquals(2, st.getInt(2));
             }
-        }).blockingAwait(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        }).blockingAwait(TIMEOUT_SECONDS, TimeUnit.SECONDS));
     }
 
     @Test
@@ -2937,7 +2910,7 @@ public class DatabaseTest {
 
         db.call("call in1out2(?,?,?)").in().out(Type.INTEGER, Integer.class)
                 .out(Type.INTEGER, Integer.class).input(0, 10, 20)
-                .blockingForEach(System.out::println);
+                .blockingForEach(DatabaseTest::println);
     }
 
     @Test
@@ -2964,7 +2937,7 @@ public class DatabaseTest {
                 .out(Type.INTEGER, Integer.class) //
                 .out(Type.INTEGER, Integer.class) //
                 .input(0, 10, 20) //
-                .blockingForEach(System.out::println);
+                .blockingForEach(DatabaseTest::println);
     }
 
     @Test
@@ -3464,7 +3437,7 @@ public class DatabaseTest {
 
                     @Override
                     public void commit() throws SQLException {
-                        System.out.println("COMMITTING");
+                        log.debug("COMMITTING");
                         if (this.getAutoCommit()) {
                             throw new SQLException("cannot commit when autoCommit is true");
                         } else {
@@ -3498,7 +3471,7 @@ public class DatabaseTest {
                 .valuesOnly() //
                 .get() //
                 .map(p -> p.name()) //
-                .blockingForEach(System.out::println);
+                .blockingForEach(log::debug);
     }
 
     private static final class Plugins {
@@ -3573,7 +3546,7 @@ public class DatabaseTest {
                         .transacted() //
                         .valuesOnly() //
                         .autoMap(Person2.class) //
-                        .doOnNext(System.out::println) //
+                        .doOnNext(x -> log.debug(x.toString())) //
                         .test() //
                         .awaitDone(TIMEOUT_SECONDS, TimeUnit.SECONDS) //
                         .assertValueCount(3) //
