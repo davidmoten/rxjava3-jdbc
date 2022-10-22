@@ -258,7 +258,7 @@ final class Call {
     private static <T1, T2> Flowable<Notification<CallableResultSet2<T1, T2>>> createWithTwoResultSets(Connection con,
             String sql, Flowable<List<Object>> parameterGroups, List<ParameterPlaceholder> parameterPlaceholders,
             Function<? super ResultSet, ? extends T1> f1, Function<? super ResultSet, ? extends T2> f2, int fetchSize) {
-        Supplier<NamedCallableStatement> resourceFactory = () -> Util.prepareCall(con, sql, parameterPlaceholders);
+        Supplier<NamedCallableStatement> resourceFactory = () -> Util.prepareCall(con, fetchSize, sql, parameterPlaceholders);
         final Function<NamedCallableStatement, Flowable<Notification<CallableResultSet2<T1, T2>>>> flowableFactory = //
                 stmt -> parameterGroups //
                         .flatMap(parameters -> {
@@ -293,7 +293,7 @@ final class Call {
             Connection con, String sql, Flowable<List<Object>> parameterGroups,
             List<ParameterPlaceholder> parameterPlaceholders, Function<? super ResultSet, ? extends T1> f1,
             Function<? super ResultSet, ? extends T2> f2, Function<? super ResultSet, ? extends T3> f3, int fetchSize) {
-        Supplier<NamedCallableStatement> resourceFactory = () -> Util.prepareCall(con, sql, parameterPlaceholders);
+        Supplier<NamedCallableStatement> resourceFactory = () -> Util.prepareCall(con, fetchSize, sql, parameterPlaceholders);
         final Function<NamedCallableStatement, Flowable<Notification<CallableResultSet3<T1, T2, T3>>>> flowableFactory = //
                 stmt -> parameterGroups //
                         .flatMap(parameters -> {
@@ -332,7 +332,7 @@ final class Call {
             List<ParameterPlaceholder> parameterPlaceholders, Function<? super ResultSet, ? extends T1> f1,
             Function<? super ResultSet, ? extends T2> f2, Function<? super ResultSet, ? extends T3> f3,
             Function<? super ResultSet, ? extends T4> f4, int fetchSize) {
-        Supplier<NamedCallableStatement> resourceFactory = () -> Util.prepareCall(con, sql, parameterPlaceholders);
+        Supplier<NamedCallableStatement> resourceFactory = () -> Util.prepareCall(con, fetchSize, sql, parameterPlaceholders);
         final Function<NamedCallableStatement, Flowable<Notification<CallableResultSet4<T1, T2, T3, T4>>>> flowableFactory = //
                 stmt -> parameterGroups //
                         .flatMap(parameters -> {
@@ -369,7 +369,7 @@ final class Call {
     private static Flowable<Notification<CallableResultSetN>> createWithNResultSets(Connection con, String sql,
             Flowable<List<Object>> parameterGroups, List<ParameterPlaceholder> parameterPlaceholders,
             List<Function<? super ResultSet, ?>> functions, int fetchSize) {
-        Supplier<NamedCallableStatement> resourceFactory = () -> Util.prepareCall(con, sql, parameterPlaceholders);
+        Supplier<NamedCallableStatement> resourceFactory = () -> Util.prepareCall(con, fetchSize, sql, parameterPlaceholders);
         final Function<NamedCallableStatement, Flowable<Notification<CallableResultSetN>>> flowableFactory = //
                 stmt -> parameterGroups //
                         .flatMap(parameters -> {
