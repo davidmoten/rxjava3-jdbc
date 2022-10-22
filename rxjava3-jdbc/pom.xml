@@ -36,7 +36,7 @@
        <dependency>
             <groupId>com.github.davidmoten</groupId>
             <artifactId>rxjava3-pool</artifactId>
-            <version>0.9.1</version>
+            <version>0.9.2</version>
        </dependency>
 
         <dependency>
