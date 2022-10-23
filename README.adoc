@@ -530,7 +530,7 @@ Note that the health check varies from database to database. The following datab
 
 === Demonstration
 
-Lets create a database with a non-blocking connection pool of size 1 only and demonstrate what happens when two queries run concurrently. We use the in-built test database for this one 
+Let's create a database with a non-blocking connection pool of size 1 only and demonstrate what happens when two queries run concurrently. We use the in-built test database for this one 
 so you can copy and paste this code to your ide and it will run (in a main method or unit test say):
 
 ```java
