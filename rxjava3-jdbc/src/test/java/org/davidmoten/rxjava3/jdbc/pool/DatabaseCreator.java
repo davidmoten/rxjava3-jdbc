@@ -6,6 +6,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.net.JarURLConnection;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,12 +25,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.commons.io.IOUtils;
 import org.davidmoten.rxjava3.jdbc.ConnectionProvider;
 import org.davidmoten.rxjava3.jdbc.Database;
+import org.davidmoten.rxjava3.jdbc.StoredProcExample;
 import org.davidmoten.rxjava3.jdbc.exceptions.SQLRuntimeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public final class DatabaseCreator {
+    
+    private static final Logger log = LoggerFactory.getLogger(DatabaseCreator.class);
 
     private static final AtomicInteger dbNumber = new AtomicInteger();
 
@@ -102,14 +110,27 @@ public final class DatabaseCreator {
     }
 
     private static void addStoredProcs(Connection c) throws SQLException {
-        File d = new File("../rxjava3-jdbc-stored-procedure/target");
-        assertTrue(d.exists());
-        File[] list = d.listFiles(f -> f.getName().startsWith("rxjava3-jdbc-stored-procedure-") //
-                && f.getName().endsWith(".jar"));
-        assertNotNull(list);
-        assertEquals(1, list.length);
-        File jar = list[0];
-        exec(c, "call sqlj.install_jar('" + jar.getPath() + "', 'APP.examples', 0)");
+        String jar;
+        URL u = urlOfClass(StoredProcExample.class);
+        if (u.getProtocol().equals("jar")) {
+            try {
+                JarURLConnection j = (JarURLConnection) u.openConnection();
+                jar = j.getJarFileURL().toExternalForm();
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
+        } else {
+            // for use in IDE, work if jar not built yet
+            File d = new File("../rxjava3-jdbc-stored-procedure/target");
+            assertTrue(d.exists());
+            File[] list = d.listFiles(f -> f.getName().startsWith("rxjava3-jdbc-stored-procedure-") //
+                    && f.getName().endsWith(".jar"));
+            assertNotNull(list);
+            assertEquals("rxjava3-jdbc-stored-procedure jar not found in " + d.getPath(), 1, list.length);
+            jar = list[0].getPath();            
+        }
+        log.debug("installing jar as stored proc: {}", jar);
+        exec(c, "call sqlj.install_jar('" + jar + "', 'APP.examples', 0)");
 
         {
             String sql = "CREATE PROCEDURE APP.zero()" //
@@ -259,6 +280,10 @@ public final class DatabaseCreator {
         }
 
         exec(c, "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY(" + "'derby.database.classpath', 'APP.examples')");
+    }
+
+    private static URL urlOfClass(Class<?> c) {
+        return c.getResource(c.getSimpleName() + ".class");
     }
 
     public static Database create(int maxSize, boolean big, Scheduler scheduler) {
