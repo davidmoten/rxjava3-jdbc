@@ -9,7 +9,7 @@
         <version>0.1</version>
     </parent>
     <artifactId>rxjava3-jdbc-parent</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <url>http://github.com/davidmoten/rxjava3-jdbc</url>
@@ -76,7 +76,7 @@
         <connection>${scm.url}</connection>
         <developerConnection>${scm.url}</developerConnection>
         <url>${scm.url}</url>
-        <tag>0.1</tag>
+        <tag>0.2.4</tag>
     </scm>
     <modules>
         <module>rxjava3-jdbc-stored-procedure</module>
