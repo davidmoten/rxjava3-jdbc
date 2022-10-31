@@ -27,7 +27,7 @@
         <jxr.version>3.3.0</jxr.version>
         <taglist.version>3.0.0</taglist.version>
         <m3.site.version>3.12.1</m3.site.version>
-        <slf4j.version>1.7.36</slf4j.version>
+        <slf4j.version>2.0.3</slf4j.version>
         <jmh.version>1.35</jmh.version>
         <junit.version>4.13.2</junit.version>
         <derby.version>10.14.2.0</derby.version>
