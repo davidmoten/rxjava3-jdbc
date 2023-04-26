@@ -32,7 +32,7 @@
         <junit.version>4.13.2</junit.version>
         <derby.version>10.14.2.0</derby.version>
         <jar.plugin.version>3.3.0</jar.plugin.version>
-        <jacoco.plugin.version>0.8.9</jacoco.plugin.version>
+        <jacoco.plugin.version>0.8.10</jacoco.plugin.version>
         <guava.mini.version>0.1.6</guava.mini.version>
         <log4j.version>2.19.0</log4j.version>
         <spotbugs.version>4.7.3.4</spotbugs.version>
@@ -88,7 +88,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.9</version>
+                <version>0.8.10</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
